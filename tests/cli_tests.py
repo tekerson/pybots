@@ -1,5 +1,5 @@
 import pybots.cli as cli
-import pybots.bot
+import pybots.bot as bot
 import pybots.heading as heading
 
 from pybots.helper import unzip
@@ -15,7 +15,7 @@ cases = [
     [
         ("PLACE 0,0,NORTH", None),
         ("LEFT", None),
-        ("MOVE", pybots.bot.InvalidMovement),
+        ("MOVE", bot.InvalidMovement),
         ("REPORT", ((0, 0), heading.headings.WEST))
     ],
     [
@@ -29,22 +29,19 @@ cases = [
 ]
 
 
-def test_processor():
+def test_run():
     for case in cases:
         i, o = unzip(case)
-        check_processor(i, list(o))
+        check_run(i, list(o))
 
 
-def check_processor(lines, out):
-    bot = pybots.bot.Bot()
+def check_run(commands, out):
     op = []
 
-    process = cli.processor(
-        bot,
+    cli.run(commands, cli._process(
+        bot.Bot(),
         lambda o: op.append(o),
         lambda e: op.append(type(e))
-    )
+    ))
 
-    for line in lines:
-        process(line)
     assert_equals(op, out)

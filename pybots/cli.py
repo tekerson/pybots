@@ -6,19 +6,16 @@ from helper import wrap_error
 
 import bot
 import command
+import heading
 
 
-def main(instream, outstream):
-    process = processor(
-        bot.Bot(),
-        formatter(outstream),
-        error(outstream)
-    )
-    for line in instream:
-        process(line)
+def run(commands, process):
+    """Read the command stream and pass each command to be processed."""
+    for command in commands:
+        process(command)
 
 
-def processor(the_bot, output, error):
+def _process(the_bot, output, error):
     def inner(line):
         try:
             cmd = command.parse(line.strip())
@@ -29,19 +26,34 @@ def processor(the_bot, output, error):
     return inner
 
 
-def formatter(outstream):
+def _render_output(outstream):
+    _headings = {
+        heading.headings.NORTH: "NORTH",
+        heading.headings.EAST: "EAST",
+        heading.headings.SOUTH: "SOUTH",
+        heading.headings.WEST: "WEST"
+    }
+
     def inner(output):
         if output is not None and output is not Exception:
-            (x, y), loc = output
-            outstream.write("{},{},{}\n".format(x, y, loc))
+            (x, y), face = output
+            outstream.write("{x},{y},{face}\n".format(
+                x=x,
+                y=y,
+                face=_headings[face]
+            ))
     return inner
 
 
-def error(outstream):
+def _handle_error(outstream):
     def inner(output):
         pass
     return inner
 
 
 if __name__ == "__main__":
-    main(sys.stdin, sys.stdout)
+    run(sys.stdin, _process(
+        bot.Bot(),
+        _render_output(sys.stdout),
+        _handle_error(sys.stdout)
+    ))

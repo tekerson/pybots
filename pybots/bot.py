@@ -6,7 +6,7 @@ from helper import wrap_error
 
 
 class BotError(Exception):
-    """The parent Exception for all Exceptions raised by the pybots.bot module"""
+    """The parent Exception for all Exceptions raised by the bot module"""
     pass
 
 
