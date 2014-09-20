@@ -1,10 +1,16 @@
 import pybots.direction as direction
 
+
 class headings:
     NORTH = "NORTH"
     EAST = "EAST"
     SOUTH = "SOUTH"
     WEST = "WEST"
+
+
+class InvalidHeading(Exception):
+    pass
+
 
 neighbours = {
     headings.NORTH: {
@@ -25,13 +31,12 @@ neighbours = {
     }
 }
 
-class InvalidHeading(Exception):
-    pass
 
 def turn(dirn, start):
     return neighbours[start][dirn]
 
+
 def face(head):
-    if not head in neighbours:
+    if head not in neighbours:
         raise InvalidHeading
     return head

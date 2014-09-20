@@ -1,6 +1,7 @@
 import pybots.bot as bot
+import pybots.heading as heading
 
-from nose.tools import assert_equals
+from nose.tools import assert_equals, raises
 
 
 class TestBots(object):
@@ -16,5 +17,41 @@ class TestBots(object):
             for y in xrange(5)]
 
     def check_place_sets_position(self, x, y):
-        self.bot.place((x, y))
+        self.bot.place((x, y), heading.headings.NORTH)
         assert_equals(self.bot._location, (x, y))
+
+    def test_place_sets_facing(self):
+        self.bot.place((0, 0), heading.headings.NORTH)
+        assert_equals(self.bot._facing, heading.headings.NORTH)
+
+    def test_turn_right(self):
+        self.bot.place((0, 0), heading.headings.NORTH)
+        self.bot.turn_right()
+        assert_equals(self.bot._facing, heading.headings.EAST)
+
+    def test_turn_left(self):
+        self.bot.place((0, 0), heading.headings.NORTH)
+        self.bot.turn_left()
+        assert_equals(self.bot._facing, heading.headings.WEST)
+
+    @raises(bot.InvalidMovement)
+    def test_place_out_of_bounds_raises_invalid_move(self):
+        self.bot.place((-1, 0), heading.headings.NORTH)
+
+    @raises(bot.InvalidMovement)
+    def test_place_with_bad_heading_raises_invalid_move(self):
+        self.bot.place((0, 0), "BACKWARDS")
+
+    def test_place_with_bad_heading_doesnt_set_location(self):
+        try:
+            self.bot.place((0, 0), "BACKWARDS")
+        except bot.InvalidMovement:
+            pass
+        assert_equals(self.bot._location, None)
+
+    def test_place_out_of_bounds_doesnt_set_heading(self):
+        try:
+            self.bot.place((-1, 0), heading.headings.NORTH)
+        except bot.InvalidMovement:
+            pass
+        assert_equals(self.bot._facing, None)
