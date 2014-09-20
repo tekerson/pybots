@@ -4,10 +4,10 @@ import pybots.direction as direction
 
 from nose.tools import assert_equals
 
-turns = [(heading.SOUTH, heading.WEST),
-         (heading.EAST, heading.SOUTH),
-         (heading.NORTH, heading.EAST),
-         (heading.WEST, heading.NORTH)]
+turns = [(heading.headings.SOUTH, heading.headings.WEST),
+         (heading.headings.EAST, heading.headings.SOUTH),
+         (heading.headings.NORTH, heading.headings.EAST),
+         (heading.headings.WEST, heading.headings.NORTH)]
 
 
 def test_turn_right():

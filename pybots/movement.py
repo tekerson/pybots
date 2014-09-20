@@ -4,10 +4,10 @@ min_x, min_y = (0, 0)
 max_x, max_y = (5, 5)
 
 movements = {
-    heading.NORTH: (0, 1),
-    heading.EAST: (1, 0),
-    heading.SOUTH: (0, -1),
-    heading.WEST: (-1, 0),
+    heading.headings.NORTH: (0, 1),
+    heading.headings.EAST: (1, 0),
+    heading.headings.SOUTH: (0, -1),
+    heading.headings.WEST: (-1, 0),
 }
 
 

@@ -12,7 +12,7 @@ def test_move_north():
 
 
 def check_move_north(x, y):
-    assert_equals(movement.move(heading.NORTH, (x, y)), (x, y + 1))
+    assert_equals(movement.move(heading.headings.NORTH, (x, y)), (x, y + 1))
 
 
 def test_move_south():
@@ -22,7 +22,7 @@ def test_move_south():
 
 
 def check_move_south(x, y):
-    assert_equals(movement.move(heading.SOUTH, (x, y)), (x, y - 1))
+    assert_equals(movement.move(heading.headings.SOUTH, (x, y)), (x, y - 1))
 
 
 def test_move_east():
@@ -32,7 +32,7 @@ def test_move_east():
 
 
 def check_move_east(x, y):
-    assert_equals(movement.move(heading.EAST, (x, y)), (x + 1, y))
+    assert_equals(movement.move(heading.headings.EAST, (x, y)), (x + 1, y))
 
 
 def test_move_west():
@@ -42,7 +42,7 @@ def test_move_west():
 
 
 def check_move_west(x, y):
-    assert_equals(movement.move(heading.WEST, (x, y)), (x - 1, y))
+    assert_equals(movement.move(heading.headings.WEST, (x, y)), (x - 1, y))
 
 
 def test_invalid_jump_to_raises_exception():
