@@ -78,3 +78,11 @@ class TestBots(object):
             pass
         assert_equals(self.bot._facing, None)
         assert_equals(self.bot._location, None)
+
+    @raises(bot.InvalidMovement)
+    def test_turn_right_before_place_raises_invalid_movement(self):
+        self.bot.turn_right()
+
+    @raises(bot.InvalidMovement)
+    def test_turn_left_before_place_raises_invalid_movement(self):
+        self.bot.turn_left()

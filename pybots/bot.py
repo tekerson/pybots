@@ -18,10 +18,16 @@ class Bot(object):
         self._location = movement.jump_to(new_loc)
 
     def turn_right(self):
-        self._facing = heading.turn(direction.RIGHT, self._facing)
+        try:
+            self._facing = heading.turn(direction.RIGHT, self._facing)
+        except heading.InvalidTurn:
+            raise InvalidMovement
 
     def turn_left(self):
-        self._facing = heading.turn(direction.LEFT, self._facing)
+        try:
+            self._facing = heading.turn(direction.LEFT, self._facing)
+        except heading.InvalidTurn:
+            raise InvalidMovement
 
     def move(self):
         try:
