@@ -2,10 +2,9 @@ import pybots.cli as cli
 import pybots.bot
 import pybots.heading as heading
 
+from pybots.helper import unzip
 
 from nose.tools import assert_equals
-
-unzip = lambda i: zip(*i)
 
 cases = [
     [

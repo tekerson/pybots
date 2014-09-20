@@ -7,3 +7,5 @@ def wrap_error(catch, instead):
                 raise instead()
         return inner
     return wrapper
+
+unzip = lambda i: zip(*i)
