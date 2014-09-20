@@ -1,4 +1,4 @@
-import pybots.heading as heading
+import heading
 
 min_x, min_y = (0, 0)
 max_x, max_y = (5, 5)

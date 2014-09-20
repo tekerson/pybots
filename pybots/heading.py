@@ -1,4 +1,4 @@
-import pybots.direction as direction
+import direction
 
 from lib import wrap_error
 
