@@ -45,5 +45,5 @@ def turn(dirn, head):
 
 def face(head):
     if head not in neighbours:
-        raise InvalidHeading
+        raise InvalidHeading()
     return head

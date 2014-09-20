@@ -3,7 +3,7 @@ def wrap_error(catch, instead):
         def inner(*args, **kwargs):
             try:
                 return f(*args, **kwargs)
-            except catch:
-                raise instead
+            except catch as inner:
+                raise instead()
         return inner
     return wrapper
