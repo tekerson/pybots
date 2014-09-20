@@ -18,7 +18,30 @@ class InvalidTurn(Exception):
     pass
 
 
-neighbours = {
+@wrap_error(KeyError, InvalidTurn)
+def turn(dirn, head):
+    """Return the heading resulting in turning `dirn` direction
+    from `head` heading
+
+    Raises:
+        InvalidTurn -- when the turn or initial heading are not valid
+    """
+    return _neighbours[head][dirn]
+
+
+def face(head):
+    """Return the heading resulting in facing towards the `head` heading
+    This is mostly useful for verifying a heading is valid.
+
+    Raises:
+        InvalidHeading -- when the heading is not valid
+    """
+    if head not in _neighbours:
+        raise InvalidHeading()
+    return head
+
+
+_neighbours = {
     headings.NORTH: {
         direction.LEFT: headings.WEST,
         direction.RIGHT: headings.EAST
@@ -36,14 +59,3 @@ neighbours = {
         direction.RIGHT: headings.NORTH
     }
 }
-
-
-@wrap_error(KeyError, InvalidTurn)
-def turn(dirn, head):
-    return neighbours[head][dirn]
-
-
-def face(head):
-    if head not in neighbours:
-        raise InvalidHeading()
-    return head

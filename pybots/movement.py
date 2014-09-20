@@ -3,7 +3,7 @@ import heading
 min_x, min_y = (0, 0)
 max_x, max_y = (5, 5)
 
-movements = {
+_movements = {
     heading.headings.NORTH: (0, 1),
     heading.headings.EAST: (1, 0),
     heading.headings.SOUTH: (0, -1),
@@ -16,7 +16,7 @@ class OutOfBoundsError(Exception):
 
 
 def move(head, loc):
-    dest = _zip_with(sum, loc, movements[head])
+    dest = _zip_with(sum, loc, _movements[head])
     return _assertInBounds(dest)
 
 
