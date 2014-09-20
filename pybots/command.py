@@ -15,10 +15,7 @@ class InvalidArgument(CommandError):
 
 def place(args):
     x, y, face = _parse_place_args(args)
-
-    def do(bot):
-        return bot.place((x, y), face)
-    return do
+    return lambda bot: bot.place((x, y), face)
 
 
 def _parse_place_args(args):
@@ -29,28 +26,10 @@ def _parse_place_args(args):
         raise InvalidArgument
 
 
-def right(_):
-    def do(bot):
-        return bot.turn_right()
-    return do
-
-
-def left(_):
-    def do(bot):
-        return bot.turn_left()
-    return do
-
-
-def move(_):
-    def do(bot):
-        return bot.move()
-    return do
-
-
 _commands = {
-    "RIGHT": right,
-    "LEFT": left,
-    "MOVE": move,
+    "RIGHT": lambda _: lambda bot: bot.turn_right(),
+    "LEFT": lambda _: lambda bot: bot.turn_left(),
+    "MOVE": lambda _: lambda bot: bot.move(),
     "PLACE": place
 }
 
