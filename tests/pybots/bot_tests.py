@@ -1,7 +1,7 @@
 import pybots.bot as bot
 import pybots.heading as heading
 
-from nose.tools import assert_equals, raises
+from nose.tools import assert_equals, assert_true, raises
 
 
 class TestBots(object):
@@ -24,6 +24,25 @@ class TestBots(object):
         self.bot.place((0, 0), heading.headings.NORTH)
         assert_equals(self.bot._facing, heading.headings.NORTH)
 
+    def test_move(self):
+        self.bot.place((0, 0), heading.headings.NORTH)
+        self.bot.move()
+        assert_equals(self.bot._location, (0, 1))
+
+    @raises(bot.InvalidMovement)
+    def test_move_out_of_bounds_raises_invalid_move(self):
+        self.bot.place((0, 0), heading.headings.SOUTH)
+        self.bot.move()
+
+    def test_move_out_of_bounds_doesnt_set_location(self):
+        self.bot.place((0, 0), heading.headings.SOUTH)
+        try:
+            self.bot.move()
+            assert_true(False, "Expected exception not raised")
+        except bot.InvalidMovement:
+            pass
+        assert_equals(self.bot._location, (0, 0))
+
     def test_turn_right(self):
         self.bot.place((0, 0), heading.headings.NORTH)
         self.bot.turn_right()
@@ -42,16 +61,20 @@ class TestBots(object):
     def test_place_with_bad_heading_raises_invalid_move(self):
         self.bot.place((0, 0), "BACKWARDS")
 
-    def test_place_with_bad_heading_doesnt_set_location(self):
+    def test_place_with_bad_heading_doesnt_set_location_or_facing(self):
         try:
             self.bot.place((0, 0), "BACKWARDS")
+            assert_true(False, "Expected exception not raised")
         except bot.InvalidMovement:
             pass
         assert_equals(self.bot._location, None)
+        assert_equals(self.bot._facing, None)
 
-    def test_place_out_of_bounds_doesnt_set_heading(self):
+    def test_place_out_of_bounds_doesnt_set_facing_or_location(self):
         try:
             self.bot.place((-1, 0), heading.headings.NORTH)
+            assert_true(False, "Expected exception not raised")
         except bot.InvalidMovement:
             pass
         assert_equals(self.bot._facing, None)
+        assert_equals(self.bot._location, None)

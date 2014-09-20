@@ -23,6 +23,12 @@ class Bot(object):
     def turn_left(self):
         self._facing = heading.turn(direction.LEFT, self._facing)
 
+    def move(self):
+        try:
+            self._location = movement.move(self._facing, self._location)
+        except movement.OutOfBoundsError:
+            raise InvalidMovement
+
 
 class InvalidMovement(Exception):
     pass
