@@ -21,6 +21,10 @@ def test_parsing_place_command_should_return_a_function():
     assert_true(callable(command.parse("PLACE 0,0,NORTH")))
 
 
+def test_parsing_report_command_should_return_a_function():
+    assert_true(callable(command.parse("REPORT")))
+
+
 @raises(command.InvalidArgument)
 def test_parsing_place_command_with_no_arguments_should_raise_invalid_argument():
     assert_true(callable(command.parse("PLACE")))

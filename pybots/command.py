@@ -30,6 +30,7 @@ _commands = {
     "RIGHT": lambda _: lambda bot: bot.turn_right(),
     "LEFT": lambda _: lambda bot: bot.turn_left(),
     "MOVE": lambda _: lambda bot: bot.move(),
+    "REPORT": lambda _: lambda bot: bot.report(),
     "PLACE": place
 }
 

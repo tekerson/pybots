@@ -29,6 +29,10 @@ class TestBots(object):
         self.bot.move()
         assert_equals(self.bot._location, (0, 1))
 
+    def test_report_returns_a_status(self):
+        self.bot.place((0, 0), heading.headings.NORTH)
+        assert_equals(self.bot.report(), ((0, 0), heading.headings.NORTH))
+
     @raises(bot.InvalidMovement)
     def test_move_out_of_bounds_raises_invalid_move(self):
         self.bot.place((0, 0), heading.headings.SOUTH)

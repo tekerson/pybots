@@ -37,3 +37,6 @@ class Bot(object):
     @wrap_error(movement.OutOfBoundsError, InvalidMovement)
     def move(self):
         self._location = movement.move(self._facing, self._location)
+
+    def report(self):
+        return self._location, self._facing
