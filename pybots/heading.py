@@ -1,5 +1,7 @@
 import pybots.direction as direction
 
+from lib import wrap_error
+
 
 class headings:
     NORTH = "NORTH"
@@ -36,11 +38,9 @@ neighbours = {
 }
 
 
+@wrap_error(KeyError, InvalidTurn)
 def turn(dirn, head):
-    try:
-        return neighbours[head][dirn]
-    except KeyError:
-        raise InvalidTurn
+    return neighbours[head][dirn]
 
 
 def face(head):

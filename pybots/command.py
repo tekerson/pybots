@@ -1,4 +1,5 @@
 import heading
+from lib import wrap_error
 
 
 class CommandError(Exception):
@@ -18,12 +19,10 @@ def place(args):
     return lambda bot: bot.place((x, y), face)
 
 
+@wrap_error(ValueError, InvalidArgument)
 def _parse_place_args(args):
-    try:
-        x, y, head = args.strip().split(",")
-        return int(x), int(y), _parse_heading(head)
-    except ValueError:
-        raise InvalidArgument
+    x, y, head = args.strip().split(",")
+    return int(x), int(y), _parse_heading(head)
 
 
 _commands = {
@@ -34,12 +33,10 @@ _commands = {
 }
 
 
+@wrap_error(KeyError, InvalidCommand)
 def parse(string):
     cmd, args = "".join([string, " "]).split(" ", 1)
-    try:
-        command = _commands[cmd]
-    except KeyError:
-        raise InvalidCommand
+    command = _commands[cmd]
     return command(args)
 
 
@@ -51,8 +48,6 @@ _headings = {
 }
 
 
+@wrap_error(KeyError, InvalidArgument)
 def _parse_heading(string):
-    try:
-        return _headings[string]
-    except KeyError:
-        raise InvalidArgument
+    return _headings[string]

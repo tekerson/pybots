@@ -2,39 +2,34 @@ import movement
 import direction
 import heading
 
+from lib import wrap_error
+
+
+class InvalidMovement(Exception):
+    pass
+
 
 class Bot(object):
     def __init__(self):
         self._location = None
         self._facing = None
 
+    @wrap_error((movement.OutOfBoundsError, heading.InvalidHeading),
+                InvalidMovement)
     def place(self, loc, facing):
-        try:
-            new_loc = movement.jump_to(loc)
-            new_facing = heading.face(facing)
-        except movement.OutOfBoundsError, heading.InvalidHeading:
-            raise InvalidMovement
+        new_loc = movement.jump_to(loc)
+        new_facing = heading.face(facing)
         self._facing = heading.face(new_facing)
         self._location = movement.jump_to(new_loc)
 
+    @wrap_error(heading.InvalidTurn, InvalidMovement)
     def turn_right(self):
-        try:
-            self._facing = heading.turn(direction.RIGHT, self._facing)
-        except heading.InvalidTurn:
-            raise InvalidMovement
+        self._facing = heading.turn(direction.RIGHT, self._facing)
 
+    @wrap_error(heading.InvalidTurn, InvalidMovement)
     def turn_left(self):
-        try:
-            self._facing = heading.turn(direction.LEFT, self._facing)
-        except heading.InvalidTurn:
-            raise InvalidMovement
+        self._facing = heading.turn(direction.LEFT, self._facing)
 
+    @wrap_error(movement.OutOfBoundsError, InvalidMovement)
     def move(self):
-        try:
-            self._location = movement.move(self._facing, self._location)
-        except movement.OutOfBoundsError:
-            raise InvalidMovement
-
-
-class InvalidMovement(Exception):
-    pass
+        self._location = movement.move(self._facing, self._location)
