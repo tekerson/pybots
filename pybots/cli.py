@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import sys
 
 from helper import wrap_error

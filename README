@@ -1,0 +1,25 @@
+pybots
+======
+
+## Requirements
+
+Python: 2.7
+
+Nose: 1.3 (for tests)
+
+
+## Usage
+
+The primary executable is in the `bin` directory, it reads from standard input and writes to standard output.
+The examples from the task are in the `examples` directory.
+
+To run `example1`, redirect stdin like so:
+
+    bin/pybots < examples/example1
+
+This should parse the commands and return and output the terminal. The other examples (`examples/example2` and `examples/example3`) are also available.
+
+
+## Tests
+
+A full [nose](http://readthedocs.org/docs/nose/en/latest/) test suite is included in the `tests` directory. It can be run with the `nosetests` test runner from the project root.
