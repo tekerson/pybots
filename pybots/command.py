@@ -1,5 +1,6 @@
 import heading
-from lib import wrap_error
+
+from helper import wrap_error
 
 
 class CommandError(Exception):

@@ -2,7 +2,7 @@ import movement
 import direction
 import heading
 
-from lib import wrap_error
+from helper import wrap_error
 
 
 class InvalidMovement(Exception):
