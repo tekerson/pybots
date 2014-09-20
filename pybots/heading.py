@@ -12,6 +12,10 @@ class InvalidHeading(Exception):
     pass
 
 
+class InvalidTurn(Exception):
+    pass
+
+
 neighbours = {
     headings.NORTH: {
         direction.LEFT: headings.WEST,
@@ -32,8 +36,11 @@ neighbours = {
 }
 
 
-def turn(dirn, start):
-    return neighbours[start][dirn]
+def turn(dirn, head):
+    try:
+        return neighbours[head][dirn]
+    except KeyError:
+        raise InvalidTurn
 
 
 def face(head):
