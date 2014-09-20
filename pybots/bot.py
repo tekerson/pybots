@@ -5,7 +5,11 @@ import heading
 from helper import wrap_error
 
 
-class InvalidMovement(Exception):
+class BotError(Exception):
+    pass
+
+
+class InvalidMovement(BotError):
     pass
 
 
