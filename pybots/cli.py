@@ -35,7 +35,7 @@ def _render_output(outstream):
     }
 
     def inner(output):
-        if output is not None and output is not Exception:
+        if output is not None:
             (x, y), face = output
             outstream.write("{x},{y},{face}\n".format(
                 x=x,
@@ -47,6 +47,7 @@ def _render_output(outstream):
 
 def _handle_error(outstream):
     def inner(output):
+        # The CLI implementation ignores invalid commands
         pass
     return inner
 

@@ -3,7 +3,7 @@ import direction
 from helper import wrap_error
 
 
-class headings:
+class headings():
     """Collection of constants naming the valid headings"""
     NORTH = "NORTH"
     EAST = "EAST"
